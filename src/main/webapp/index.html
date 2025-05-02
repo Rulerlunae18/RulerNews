@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <title>Реєстрація</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .error {
+            border: 2px solid red;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form class="form-box" id="registerForm" method="post">
+        <h2>Реєстрація</h2>
+
+        <label>Ім'я користувача:</label>
+        <input type="text" name="username" />
+        <div class="error-message" id="username-error"></div>
+
+        <label>Email:</label>
+        <input type="email" name="email" />
+        <div class="error-message" id="email-error"></div>
+
+        <label>Пароль:</label>
+        <input type="password" name="password" />
+        <div class="error-message" id="password-error"></div>
+
+        <label>Кодове слово (для адміністратора):</label>
+        <input type="text" name="adminCode" />
+
+        <div class="button-group">
+            <button type="submit" formaction="/RulerNews/register">Зареєструватися</button>
+            <button type="submit" formaction="/RulerNews/login">Увійти</button>
+            <button type="submit" formaction="/RulerNews/guestlogin">Увійти як гість</button>
+        </div>
+    </form>
+</div>
+<script>
+    const form = document.getElementById('registerForm');
+    const guestButton = form.querySelector('button[formaction$="guestlogin"]');
+
+    let submittingAsGuest = false;
+    guestButton.addEventListener('click', () => {
+        submittingAsGuest = true;
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    if (error === 'user_exists') {
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = "Користувач з таким іменем або email вже існує.";
+        errorDiv.style.color = "red";
+        errorDiv.style.marginBottom = "10px";
+        form.prepend(errorDiv);
+    }
+
+    form.addEventListener('submit', function (event) {
+        if (submittingAsGuest) {
+            submittingAsGuest = false;
+            return;
+        }
+
+        let valid = true;
+
+        const username = form.username;
+        const email = form.email;
+        const password = form.password;
+
+        [username, email, password].forEach(field => field.classList.remove('error'));
+        ['username', 'email', 'password'].forEach(id => {
+            document.getElementById(`${id}-error`).textContent = '';
+        });
+
+        if (!username.value.trim()) {
+            username.classList.add('error');
+            document.getElementById('username-error').textContent = "Ім'я користувача є обов'язковим.";
+            valid = false;
+        }
+
+        if (!email.value.trim()) {
+            email.classList.add('error');
+            document.getElementById('email-error').textContent = "Email є обов'язковим.";
+            valid = false;
+        }
+
+        if (!password.value.trim()) {
+            password.classList.add('error');
+            document.getElementById('password-error').textContent = "Пароль є обов'язковим.";
+            valid = false;
+        }
+
+        if (!valid) {
+            event.preventDefault();
+        }
+    });
+</script>
+</body>
+</html>

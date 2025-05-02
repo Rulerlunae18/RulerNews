@@ -1,0 +1,201 @@
+:root {
+    --main-color: #A52A2A;
+    --hover-color: #8B0000;
+    --bg-gradient: linear-gradient(to bottom right, #A52A2A, #F4A460);
+    --card-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0 40px 40px;
+    background: var(--bg-gradient);
+    color: #333;
+}
+
+/* Хедер */
+.header {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px 40px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    color: white;
+    margin-bottom: 40px;
+}
+
+.logo a {
+    font-size: 32px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px black;
+}
+
+.logo-subtext {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #eee;
+}
+
+/* Контейнер з боками */
+.layout-with-sides {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+/* Основний блок */
+.main {
+    flex: 1 1 600px;
+    max-width: 700px;
+    background-color: rgba(255,255,255,0.9);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    min-width: 300px;
+}
+
+.main h2 {
+    color: var(--main-color);
+    margin-bottom: 20px;
+}
+
+/* Форма */
+form label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea,
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(165,42,42, 0.5);
+}
+
+button {
+    background-color: var(--main-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    background-color: var(--hover-color);
+    transform: scale(1.05);
+}
+
+.side-banner {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff; /* залишено як було */
+    font-family: 'Courier New', monospace;
+    padding: 20px;
+    border-radius: 15px;
+    width: 200px;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    backdrop-filter: blur(3px);
+    flex-shrink: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.side-banner h4 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #fff; /* залишено як було */
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.tips-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.tips-list li {
+    margin-bottom: 10px;
+    padding-left: 10px;
+    position: relative;
+}
+
+.tips-list li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+    font-size: 12px;
+}
+
+.tips-note {
+    font-size: 12px;
+    margin-top: 15px;
+    color: #eee;
+    text-align: center;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .layout-with-sides {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .side-banner {
+        width: 100%;
+        text-align: center;
+    }
+
+    .main {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    input[type="text"],
+    textarea,
+    select,
+    input[type="file"] {
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        font-size: 16px;
+    }
+}

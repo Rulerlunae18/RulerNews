@@ -1,0 +1,175 @@
+:root {
+    --main-color: #A52A2A;
+    --hover-color: #8B0000;
+    --bg-gradient: linear-gradient(to bottom right, #A52A2A, #F4A460);
+    --card-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0 40px 40px;
+    background: var(--bg-gradient);
+    color: #333;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px 40px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    color: white;
+    position: relative;
+    z-index: 10;
+}
+
+.logo a {
+    font-size: 32px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px black;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.header-right form {
+    margin: 0;
+}
+
+.search-form input[type="text"] {
+    width: 220px;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    margin-right: 5px;
+    transition: all 0.3s;
+}
+
+.search-form input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255,255,255,0.8);
+}
+
+.search-form button,
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--main-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.search-form button:hover,
+button:hover {
+    background-color: var(--hover-color);
+    transform: scale(1.05);
+}
+
+form {
+    margin-bottom: 15px;
+}
+
+.filter-block {
+    margin-bottom: 25px;
+    margin-top: 20px;
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 12px;
+    display: inline-block;
+    backdrop-filter: blur(3px);
+}
+
+select {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-left: 10px;
+    width: 250px;
+    transition: 0.3s;
+}
+
+select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255,255,255,0.7);
+}
+
+.main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.news-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+}
+
+.news-card img {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.news-card h3 {
+    margin-top: 0;
+    color: var(--main-color);
+}
+
+.news-card p {
+    margin: 6px 0;
+}
+
+h5 {
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.footer {
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+    font-weight: lighter;
+}
+
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .logo a {
+        font-size: 24px;
+    }
+
+    .search-form input[type="text"] {
+        width: 100%;
+    }
+}
