@@ -34,7 +34,7 @@ public class RateNewsServlet extends HttpServlet {
                 request.setAttribute("error", "Ви вже поставили цю реакцію.");
                 List<News> newsList = NewsDAO.getAllNews();
                 request.setAttribute("newsList", newsList);
-                request.getRequestDispatcher("home.jsp").forward(request, response);
+                request.getRequestDispatcher("/home.jsp").forward(request, response);
             }
         } else {
             response.sendRedirect("index.html");
