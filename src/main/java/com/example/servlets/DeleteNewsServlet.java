@@ -55,7 +55,7 @@ public class DeleteNewsServlet extends HttpServlet {
             return;
         }
 
-        String imagePath = targetNews.getImagePath();
+        String imagePath = targetNews.getImageUrl();
         if (imagePath != null && !imagePath.isEmpty()) {
             String uploadDir = System.getProperty("java.io.tmpdir") + File.separator + "uploads";
             File imageFile = new File(uploadDir, imagePath);
