@@ -7,8 +7,9 @@ import java.util.Properties;
 
 public class EmailService {
 
-    private static final String FROM_EMAIL = "rulernews1809@gmail.com";
-    private static final String APP_PASSWORD = "xbrl aehw nlrq zpfv";
+    private static final String FROM_EMAIL = System.getenv("EMAIL_FROM");
+    private static final String APP_PASSWORD = System.getenv("EMAIL_PASSWORD");
+
 
     public static String sendConfirmationEmail(String toEmail, String username, String token, String baseUrl) {
         System.out.println("▶ Надсилання листа до: " + toEmail);
