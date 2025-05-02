@@ -6,32 +6,27 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static final String DB_HOST = System.getenv("DB_HOST");
-    private static final String DB_PORT = System.getenv("DB_PORT");
-    private static final String DB_NAME = System.getenv("DB_NAME");
-    private static final String DB_USER = System.getenv("DB_USER");
-    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
+    public static Connection getConnection() throws SQLException {
+        String host = System.getenv("DB_HOST");
+        String port = System.getenv("DB_PORT");
+        String name = System.getenv("DB_NAME");
+        String user = System.getenv("DB_USER");
+        String pass = System.getenv("DB_PASSWORD");
 
-    private static final String DB_URL;
+        // Debug log
+        System.out.println("DB_HOST: " + host);
+        System.out.println("DB_PORT: " + port);
+        System.out.println("DB_NAME: " + name);
+        System.out.println("DB_USER: " + user);
+        // DO NOT print password
 
-    static {
-        // Debug print — for Render or Docker logs
-        System.out.println("DB_HOST: " + DB_HOST);
-        System.out.println("DB_PORT: " + DB_PORT);
-        System.out.println("DB_NAME: " + DB_NAME);
-        System.out.println("DB_USER: " + DB_USER);
-        // Do not print DB_PASSWORD for security
-
-        // Check if any variable is null
-        if (DB_HOST == null || DB_PORT == null || DB_NAME == null || DB_USER == null || DB_PASSWORD == null) {
-            throw new RuntimeException("One or more required DB environment variables are not set.");
+        if (host == null || port == null || name == null || user == null || pass == null) {
+            throw new RuntimeException("One or more DB environment variables are not set.");
         }
 
-        DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?useSSL=false&serverTimezone=UTC";
-        System.out.println("DB_URL: " + DB_URL);
-    }
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + name + "?useSSL=false&serverTimezone=UTC";
+        System.out.println("DB_URL: " + url);
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        return DriverManager.getConnection(url, user, pass);
     }
 }
