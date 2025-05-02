@@ -6,7 +6,7 @@ services:
     dockerfilePath: ./Dockerfile
     envVars:
       - key: DB_HOST
-        value: localhost  # или внутреннее имя, если ты подключаешь внешний MySQL
+        value: rulernews-db.render.com
       - key: DB_PORT
         value: "3306"
       - key: DB_NAME
