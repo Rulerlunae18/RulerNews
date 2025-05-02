@@ -1,0 +1,42 @@
+package com.example.servlets;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
+
+import java.io.*;
+
+@WebServlet("/image")
+public class ImageServlet extends HttpServlet {
+    private final String UPLOAD_DIR = System.getProperty("java.io.tmpdir") + File.separator + "uploads";
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        String name = req.getParameter("name");
+        if (name == null || name.contains("..")) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid image name");
+            return;
+        }
+
+        File imageFile = new File(UPLOAD_DIR, name);
+        if (!imageFile.exists()) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
+        String mime = getServletContext().getMimeType(imageFile.getName());
+        if (mime == null) mime = "application/octet-stream";
+        resp.setContentType(mime);
+
+        try (FileInputStream in = new FileInputStream(imageFile);
+             OutputStream out = resp.getOutputStream()) {
+            byte[] buffer = new byte[4096];
+            int len;
+            while ((len = in.read(buffer)) != -1) {
+                out.write(buffer, 0, len);
+            }
+        }
+    }
+}
