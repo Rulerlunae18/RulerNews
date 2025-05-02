@@ -4,3 +4,22 @@ services:
     env: docker
     plan: free
     dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_HOST
+        value: localhost  # или внутреннее имя, если ты подключаешь внешний MySQL
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        value: news
+      - key: DB_USER
+        value: root
+      - key: DB_PASSWORD
+        value: RulerLovesYou
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        value: rulernews1809@gmail.com
+      - key: SMTP_PASSWORD
+        value: xbrl aehw nlrq zpfv
