@@ -12,7 +12,7 @@ public class News {
     private int dislikes;
     private String imageUrl;
     private String category;
-    private Timestamp createdAt; // ← добавили дату
+    private Timestamp createdAt; 
 
     public News(int id, String title, String content, int authorId, String author, int likes, int dislikes, String imageUrl, String category, Timestamp createdAt) {
         this.id = id;
