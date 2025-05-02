@@ -1,5 +1,6 @@
 package com.example.servlets;
 
+import com.example.model.User;
 import com.example.dao.UserDAO;
 import com.example.model.User;
 import jakarta.servlet.ServletException;
