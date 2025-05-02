@@ -7,25 +7,25 @@
     <meta charset="UTF-8">
     <title>RULERNEWS - сьогодні</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 </head>
 <body>
 
 <div class="header">
     <div class="logo">
-        <a href="home">📏 RULER NEWS</a>
+        <a href="${pageContext.request.contextPath}/home">📏 RULER NEWS</a>
     </div>
 
     <a>Курсова робота студентки групи ІА-43 Сивенюк Ольги</a>
 
     <div class="header-right">
         <c:if test="${sessionScope.role == 'admin'}">
-            <form method="get" action="createnews.jsp">
+            <form method="get" action="${pageContext.request.contextPath}/createnews.jsp">
                 <button>➕ Додати новину</button>
             </form>
         </c:if>
 
-        <form class="search-form" method="get" action="home">
+        <form class="search-form" method="get" action="${pageContext.request.contextPath}/home">
             <input type="text" name="query" placeholder="🔍 Пошук новин..." value="${param.query}" />
             <button type="submit">Пошук</button>
         </form>
@@ -33,7 +33,7 @@
 </div>
 
 <div class="filter-block">
-    <form method="get" action="home">
+    <form method="get" action="${pageContext.request.contextPath}/home">
         <label for="category"><b>Фільтрувати за категорією:</b></label>
         <select id="category" name="category" onchange="this.form.submit()">
             <option value="all" ${param.category == 'all' ? 'selected' : ''}>Усі</option>
@@ -71,7 +71,7 @@
         </c:if>
 
         <c:if test="${sessionScope.role == 'admin'}">
-            <form method="post" action="deletenews" style="display:inline;">
+            <form method="post" action="${pageContext.request.contextPath}/deletenews">
                 <input type="hidden" name="newsId" value="${news.id}" />
                 <button type="submit" onclick="return confirm('Точно видалити цю новину?')">🗑 Видалити</button>
             </form>
