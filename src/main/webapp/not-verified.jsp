@@ -34,6 +34,5 @@
     <input type="email" id="email" name="email" required>
     <button type="submit">Надіслати ще раз</button>
 </form>
-
 </body>
 </html>
