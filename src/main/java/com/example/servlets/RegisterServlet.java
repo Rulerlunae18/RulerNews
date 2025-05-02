@@ -14,9 +14,9 @@ import java.sql.*;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-    private final String DB_URL = "jdbc:mysql://localhost:3306/news";
-    private final String DB_USER = "root";
-    private final String DB_PASSWORD = "RulerLovesYou";
+    private final String DB_URL = System.getenv("DB_URL");
+    private final String DB_USER = System.getenv("DB_USER");
+    private final String DB_PASSWORD = System.getenv("DB_PASSWORD");
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +43,6 @@ public class RegisterServlet extends HttpServlet {
 
             try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
 
-                // Перевірка наявності користувача
                 try (PreparedStatement checkStmt = conn.prepareStatement(
                         "SELECT COUNT(*) FROM users WHERE username = ? OR email = ?")) {
                     checkStmt.setString(1, username);
@@ -56,15 +55,13 @@ public class RegisterServlet extends HttpServlet {
                     }
                 }
 
-                // Генерація токена
                 String emailToken = UUID.randomUUID().toString();
 
-                // Вставка користувача
                 try (PreparedStatement insertStmt = conn.prepareStatement(
                         "INSERT INTO users (username, password_hash, email, is_admin, email_token, is_verified) " +
                                 "VALUES (?, ?, ?, ?, ?, ?)")) {
                     insertStmt.setString(1, username);
-                    insertStmt.setString(2, password); // ❗ За потреби додай хешування
+                    insertStmt.setString(2, password);
                     insertStmt.setString(3, email);
                     insertStmt.setBoolean(4, isAdmin);
                     insertStmt.setString(5, emailToken);
@@ -72,14 +69,11 @@ public class RegisterServlet extends HttpServlet {
 
                     int rowsInserted = insertStmt.executeUpdate();
                     if (rowsInserted > 0) {
-                        // Формуємо base URL
                         String baseUrl = request.getRequestURL().toString()
                                 .replace(request.getRequestURI(), request.getContextPath());
 
-                        // Надсилаємо лист
                         String message = EmailService.sendConfirmationEmail(email, username, emailToken, baseUrl);
 
-                        // Передаємо повідомлення на сторінку
                         request.setAttribute("emailMessage", message);
                         getServletContext().getRequestDispatcher("/not-verified.jsp").forward(request, response);
                         return;
