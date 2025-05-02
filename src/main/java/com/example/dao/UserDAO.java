@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.models.User;
+import com.example.model.User;
 import com.example.utils.DBConnection;
 
 import java.sql.Connection;
