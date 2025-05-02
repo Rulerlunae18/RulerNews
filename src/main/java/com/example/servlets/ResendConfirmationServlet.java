@@ -12,9 +12,10 @@ import java.util.UUID;
 
 @WebServlet("/resendconfirmation")
 public class ResendConfirmationServlet extends HttpServlet {
-    private final String DB_URL = "jdbc:mysql://localhost:3306/news";
-    private final String DB_USER = "root";
-    private final String DB_PASSWORD = "RulerLovesYou";
+    private final String DB_URL = System.getenv("DB_URL");
+    private final String DB_USER = System.getenv("DB_USER");
+    private final String DB_PASSWORD = System.getenv("DB_PASSWORD");
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -56,10 +57,9 @@ public class ResendConfirmationServlet extends HttpServlet {
                                 updateStmt.executeUpdate();
                             }
 
-                            String baseUrl = request.getScheme() + "://" +
-                                    request.getServerName() + ":" +
-                                    request.getServerPort() +
-                                    request.getContextPath();
+                            String baseUrl = request.getRequestURL().toString()
+                                .replace(request.getRequestURI(), request.getContextPath());
+
 
                             String message = EmailService.sendConfirmationEmail(email, username, token, baseUrl);
                             out.println(message);
