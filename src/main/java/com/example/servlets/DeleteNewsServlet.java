@@ -42,6 +42,7 @@ public class DeleteNewsServlet extends HttpServlet {
         }
 
         News news = NewsDAO.getNewsById(id);
+                News news = NewsDAO.getNewsById(id);
         if (news == null) {
             req.setAttribute("error", "Новину не знайдено.");
             req.getRequestDispatcher("home.jsp").forward(req, resp);
@@ -56,14 +57,16 @@ public class DeleteNewsServlet extends HttpServlet {
             return;
         }
 
-        boolean deleted = NewsDAO.deleteNews(id);
-
-        if (deleted) {
-            resp.sendRedirect("home");
-        } else {
-            req.setAttribute("error", "Не вдалося видалити новину.");
-            req.setAttribute("newsList", NewsDAO.getAllNews());
-            req.getRequestDispatcher("home.jsp").forward(req, resp);
+        // 🧹 Видаляємо пов'язане зображення
+        String imagePath = news.getImagePath();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            String fullImagePath = System.getProperty("java.io.tmpdir") + File.separator + "uploads" + File.separator + imagePath;
+            File imageFile = new File(fullImagePath);
+            if (imageFile.exists()) {
+                imageFile.delete(); // ❗ ігноруємо результат, або можна логувати
+            }
         }
+
+        boolean deleted = NewsDAO.deleteNews(id);
     }
 }
