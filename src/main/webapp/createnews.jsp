@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Створити новину</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="css/main1.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main1.css">
 </head>
 <body>
 
 <div class="header">
     <div class="logo">
-        <a href="home">📏 RULER NEWS</a>
+        <a href="${pageContext.request.contextPath}/home">📏 RULER NEWS</a>
         <div class="logo-subtext"><i>Додайте щось потужне💥</i></div>
     </div>
 </div>
@@ -45,6 +45,8 @@
                 <option value="Політика">Політика</option>
                 <option value="Кулінарія">Кулінарія</option>
                 <option value="Мистецтво">Мистецтво</option>
+                <option value="Природа">Природа</option>
+
             </select><br/><br/>
 
             <label>Зображення:</label><br/>
