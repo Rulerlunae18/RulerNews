@@ -320,3 +320,5 @@ public class NewsDAO {
         return false;
     }
 }
+
+}
