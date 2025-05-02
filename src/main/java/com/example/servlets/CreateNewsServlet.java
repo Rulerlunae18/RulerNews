@@ -50,7 +50,6 @@ public class CreateNewsServlet extends HttpServlet {
             }
 
             String uploadDir = System.getProperty("java.io.tmpdir") + File.separator + "uploads";
-            
             File uploadFolder = new File(uploadDir);
             if (!uploadFolder.exists()) uploadFolder.mkdirs();
 
@@ -58,7 +57,7 @@ public class CreateNewsServlet extends HttpServlet {
 
             try (InputStream input = filePart.getInputStream()) {
                 Files.copy(input, Paths.get(filePath));
-                imagePath = filePath;
+                imagePath = fileName; 
             }
         }
 
