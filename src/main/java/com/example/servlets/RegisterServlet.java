@@ -1,5 +1,6 @@
 package com.example.servlets;
 
+import com.example.model.User;
 import com.example.utils.EmailService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
