@@ -277,44 +277,46 @@ public class NewsDAO {
     }
 
     public static boolean deleteNews(int id) {
-        String deleteReactionsSql = "DELETE FROM user_news_reactions WHERE news_id = ?";
-        String deleteNewsSql = "DELETE FROM news WHERE id = ?";
-        String imagePath = getImageUrlById(id);
+    String deleteReactionsSql = "DELETE FROM user_news_reactions WHERE news_id = ?";
+    String deleteNewsSql = "DELETE FROM news WHERE id = ?";
+    String imagePath = getImageUrlById(id);
 
-        if (imagePath != null && !imagePath.isEmpty()) {
-            try {
-                Files.deleteIfExists(Paths.get("uploads/" + imagePath));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    // Формуємо повний шлях до зображення
+    if (imagePath != null && !imagePath.isEmpty()) {
+        String fullPath = System.getProperty("java.io.tmpdir") + File.separator + "uploads" + File.separator + imagePath;
+        try {
+            Files.deleteIfExists(Paths.get(fullPath));
+        } catch (IOException e) {
+            System.err.println("Не вдалося видалити зображення: " + fullPath);
+            e.printStackTrace();
         }
+    }
 
-        try (Connection conn = DBConnection.getConnection()) {
-            conn.setAutoCommit(false);
+    try (Connection conn = DBConnection.getConnection()) {
+        conn.setAutoCommit(false);
 
-            try (
-                    PreparedStatement ps1 = conn.prepareStatement(deleteReactionsSql);
-                    PreparedStatement ps2 = conn.prepareStatement(deleteNewsSql)
-            ) {
-                ps1.setInt(1, id);
-                ps1.executeUpdate();
+        try (
+            PreparedStatement ps1 = conn.prepareStatement(deleteReactionsSql);
+            PreparedStatement ps2 = conn.prepareStatement(deleteNewsSql)
+        ) {
+            ps1.setInt(1, id);
+            ps1.executeUpdate();
 
-                ps2.setInt(1, id);
-                int rowsAffected = ps2.executeUpdate();
+            ps2.setInt(1, id);
+            int rowsAffected = ps2.executeUpdate();
 
-                conn.commit();
-                return rowsAffected > 0;
+            conn.commit();
+            return rowsAffected > 0;
 
-            } catch (SQLException e) {
-                conn.rollback();
-                e.printStackTrace();
-                return false;
-            } finally {
-                conn.setAutoCommit(true);
-            }
         } catch (SQLException e) {
+            conn.rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            conn.setAutoCommit(true);
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
 }
