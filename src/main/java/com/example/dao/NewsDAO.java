@@ -282,7 +282,6 @@ public class NewsDAO {
     String deleteNewsSql = "DELETE FROM news WHERE id = ?";
     String imagePath = getImageUrlById(id);
 
-    // Формуємо повний шлях до зображення
     if (imagePath != null && !imagePath.isEmpty()) {
         String fullPath = System.getProperty("java.io.tmpdir") + File.separator + "uploads" + File.separator + imagePath;
         try {
