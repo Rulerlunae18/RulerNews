@@ -66,6 +66,10 @@ public class News {
         return title;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+    
     public void setTitle(String title) {
         this.title = title;
     }
